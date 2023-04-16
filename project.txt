@@ -1,0 +1,48 @@
+/// <reference types="cypress" />  
+
+// above reference is the intellisense and it shows suggestions when we are using the cypress
+
+describe('CustomSuite', function ()
+{
+ it('LoginTest-Case', function ()
+ {  
+   cy.visit('https://automationteststore.com/');
+   cy.contains('Login').click()
+   cy.get('input[name=loginname]').type('Lovelysaini')
+   cy.get('input[name=password]').type('saini')
+   cy.xpath('//button[@title="Login"]').click()
+ 
+   //  Assertion to verify the correct page for login
+  cy.get('li').should('contain','Account Dashboard')
+
+ 
+  cy.visit('https://automationteststore.com/index.php?rt=product/product&path=36&product_id=56');
+  
+  //Assertion to verify the correct page for Waterproof Protective Undereye Concealer
+  cy.title().should('be.equal','Waterproof Protective Undereye Concealer')
+
+  cy.get('input[name=quantity]').clear()
+  cy.get('input[name=quantity]').type(4)
+ 
+ 
+  cy.contains('Add to Cart').click()
+
+  //  Assertion to verify the correct page for shopping cart
+  cy.title().should('be.equal','Shopping Cart')
+
+
+  cy.xpath('//a[@id="cart_checkout2"]').click()
+
+ //  Assertion to verify the correct page for Checkout Confirmation
+  cy.title().should('be.equal','Checkout Confirmation')
+
+  cy.get("button[title='Confirm Order']").click()
+
+  cy.log("Your Order Has Been Processed!")
+  cy.contains('Continue').click()
+
+
+  cy.visit('https://automationteststore.com/index.php?rt=account/history');
+
+})
+ })
